@@ -20,8 +20,6 @@ void startProduction(){
   /* Prepare task */
   Task task = calloc(1, sizeof(Task_t));
   task->jobQ = queueCreate(num_cars * 17);
-  task->bodyIsHere = 0;
-  task->carIsHere = 0;
   //notice of how many that type of robots have to better allocation
   task->typeA = num_typeA;
   task->typeB = num_typeB;
