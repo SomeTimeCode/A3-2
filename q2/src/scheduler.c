@@ -64,6 +64,7 @@ void simpleWork(int jobID, Robot robot) {
     sem_post(&task->lock012);
     break;
   case BODY:
+    //As we know there will have body task to recycle the storage of engine chassis and skeleton, let the robots to do
     sem_wait(&task->BODY_lock);
     sem_post(&task->ENGINE_lock);
     sem_post(&task->CHASSIS_lock);
@@ -86,6 +87,7 @@ void simpleWork(int jobID, Robot robot) {
     makeBattery(robot);
     break;
   case CAR:
+    //As we confirm there will be a make car recycle the storage let the robots do window tire etc
     sem_post(&task->WINDOW_lock);
     sem_post(&task->WINDOW_lock);
     sem_post(&task->WINDOW_lock);
@@ -100,18 +102,6 @@ void simpleWork(int jobID, Robot robot) {
     sem_post(&task->BATTERY_lock);
     makeCar(robot);
     sem_post(&task->BODY_lock);
-    // sem_post(&task->BATTERY_lock);
-    // sem_post(&task->WINDOW_lock);
-    // sem_post(&task->WINDOW_lock);
-    // sem_post(&task->WINDOW_lock);
-    // sem_post(&task->WINDOW_lock);
-    // sem_post(&task->WINDOW_lock);
-    // sem_post(&task->WINDOW_lock);
-    // sem_post(&task->WINDOW_lock);
-    // sem_post(&task->TIRE_lock);
-    // sem_post(&task->TIRE_lock);
-    // sem_post(&task->TIRE_lock);
-    // sem_post(&task->TIRE_lock);
     break;
   default:
     err_printf(__func__, __LINE__, "Error!! Robot%c[%d] gets invalid jobID %d\n", 
