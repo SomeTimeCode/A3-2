@@ -22,6 +22,7 @@ void startProduction(){
   task->jobQ = queueCreate(num_cars * 17);
   task->bodyIsHere = 0;
   task->carIsHere = 0;
+  //notice of how many that type of robots have to better allocation
   task->typeA = num_typeA;
   task->typeB = num_typeB;
   task->typeC = num_typeC;
@@ -29,9 +30,9 @@ void startProduction(){
   sem_init(&task->TIRE_lock, 0,0);
   sem_init(&task->WINDOW_lock, 0,0);
   sem_init(&task->BATTERY_lock, 0,0);
+  //in order to left at least one space for the body
   sem_init(&task->lock012, 0, num_spaces - 1);
   sem_init(&task->BODY_lock, 0, num_spaces - 1);
-  ///body
   sem_init(&task->ENGINE_lock, 0,0);
   sem_init(&task->CHASSIS_lock, 0,0);
   sem_init(&task->SKELETON_lock, 0,0);
