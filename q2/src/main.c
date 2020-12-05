@@ -22,10 +22,12 @@ void startProduction(){
   Task task = calloc(1, sizeof(Task_t));
   task->jobQ = queueCreate(num_cars * 17);
   task->bodyIsHere = 0;
+  //to secure there will be at least one space for doing make body
   sem_init(&task->lock012, 0, num_spaces - 1);
   sem_init(&task->TIRE_lock, 0,0);
   sem_init(&task->WINDOW_lock, 0,0);
   sem_init(&task->BATTERY_lock, 0,0);
+  //to secure there will be at least one space for doing other tasks
   sem_init(&task->BODY_lock, 0, num_spaces - 1);
   ///body
   sem_init(&task->ENGINE_lock, 0,0);
