@@ -25,10 +25,6 @@ void *simpleRobotRoutine(void *arg) {
         break;
       }
       front= *queueFront(task->jobQ);
-      // if((front == 0|| front == 1 || front == 2) && task->bodyIsHere < 1){
-      //   sem_post(&task->pick);
-      //   continue;
-      // }
       if((front== 0 || front== 1|| front==5 || front==7) && c != 0){
         sem_post(&task->pick);
         continue;
@@ -39,7 +35,6 @@ void *simpleRobotRoutine(void *arg) {
       }
       //reduce the number of robots available if assigned a job to do
       task->typeA = task->typeA - 1;
-      printf("hello\n");
       queueDequeueFront(task->jobQ, &jobID);
       sem_post(&task->pick);
   #ifdef DEBUG
@@ -60,10 +55,6 @@ void *simpleRobotRoutine(void *arg) {
         break;
       }
       front= *queueFront(task->jobQ);
-      // if((front == 0|| front == 1 || front == 2) && task->bodyIsHere < 1){
-      //   sem_post(&task->pick);
-      //   continue;
-      // }
       if((front== 0 || front== 1|| front==5 || front==7) && c != 0){
         sem_post(&task->pick);
         continue;
@@ -72,7 +63,6 @@ void *simpleRobotRoutine(void *arg) {
         sem_post(&task->pick);
         continue;
       }
-      printf("hello\n");
       task->typeB = task->typeB - 1;
       queueDequeueFront(task->jobQ, &jobID);
       sem_post(&task->pick);
@@ -94,10 +84,6 @@ void *simpleRobotRoutine(void *arg) {
         break;
       }
       front= *queueFront(task->jobQ);
-      // if((front == 0|| front == 1 || front == 2) && task->bodyIsHere < 1){
-      //   sem_post(&task->pick);
-      //   continue;
-      // }
       if((front== 6) && b != 0){
         sem_post(&task->pick);
         continue;
@@ -107,7 +93,6 @@ void *simpleRobotRoutine(void *arg) {
         sem_post(&task->pick);
         continue;
       }
-      printf("hello\n");
       task->typeC = task->typeC - 1;
       queueDequeueFront(task->jobQ, &jobID);
       sem_post(&task->pick);
@@ -178,10 +163,7 @@ void simpleWork(int jobID, Robot robot) {
     sem_post(&task->ENGINE_lock);
     sem_post(&task->CHASSIS_lock);
     sem_post(&task->SKELETON_lock);
-    // task->bodyIsHere = task->bodyIsHere + 1;
     makeBody(robot);
-    // sem_post(&task->BODY_lock);
-    // task->bodyIsHere = task->bodyIsHere - 1;
     break;
   case WINDOW:
     sem_wait(&task->WINDOW_lock);
@@ -210,18 +192,6 @@ void simpleWork(int jobID, Robot robot) {
     sem_post(&task->BATTERY_lock);
     makeCar(robot);
     sem_post(&task->BODY_lock);
-    // sem_post(&task->BATTERY_lock);
-    // sem_post(&task->WINDOW_lock);
-    // sem_post(&task->WINDOW_lock);
-    // sem_post(&task->WINDOW_lock);
-    // sem_post(&task->WINDOW_lock);
-    // sem_post(&task->WINDOW_lock);
-    // sem_post(&task->WINDOW_lock);
-    // sem_post(&task->WINDOW_lock);
-    // sem_post(&task->TIRE_lock);
-    // sem_post(&task->TIRE_lock);
-    // sem_post(&task->TIRE_lock);
-    // sem_post(&task->TIRE_lock);
     break;
   default:
     err_printf(__func__, __LINE__, "Error!! Robot%c[%d] gets invalid jobID %d\n", 
